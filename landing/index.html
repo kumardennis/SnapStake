@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapStake - Prove It. Bet On It.</title>
+    <link rel="icon" type="image/png" href="../snapstake_app_icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B35;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 107, 53, 0.15), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(78, 205, 196, 0.15), transparent 50%);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background: #FF6B35;
+            border-radius: 50%;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: #4ECDC4;
+            border-radius: 30%;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            background: #FFE66D;
+            border-radius: 50%;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-brand-icon {
+            width: 96px;
+            height: 96px;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 22px;
+            box-shadow: 0 16px 44px rgba(255, 107, 53, 0.35);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B35, #F7931E, #FFE66D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 2px solid #4ECDC4;
+            color: #4ECDC4;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .secondary-button:hover {
+            background: #4ECDC4;
+            color: #0a0a0f;
+            transform: translateY(-2px);
+        }
+
+        .example-section {
+            padding: 120px 60px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #b0b0b0;
+            margin-bottom: 80px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .example-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .example-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .example-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #FFE66D;
+        }
+
+        .example-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        .bet-display {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .bet-option {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .bet-option.yes {
+            border-color: #4ECDC4;
+        }
+
+        .bet-option.no {
+            border-color: #FF6B6B;
+        }
+
+        .bet-option .label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .bet-option.yes .label {
+            color: #4ECDC4;
+        }
+
+        .bet-option.no .label {
+            color: #FF6B6B;
+        }
+
+        .bet-option .amount {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .how-it-works {
+            padding: 120px 60px;
+            background: #0a0a0f;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 50px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 53, 0.5);
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        .step h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .creator-icon {
+            background: linear-gradient(135deg, #FF6B35, #F7931E) !important;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3) !important;
+        }
+
+        .features {
+            padding: 120px 60px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+            border-color: rgba(255, 107, 53, 0.5);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            padding: 120px 60px;
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-section .cta-button {
+            background: #fff;
+            color: #FF6B35;
+            font-size: 18px;
+        }
+
+        footer {
+            background: #0a0a0f;
+            padding: 40px 60px;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .example-section, .features, .how-it-works, .cta-section {
+                padding: 80px 30px;
+            }
+
+            .example-container {
+                padding: 30px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .bet-display {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo"><img src="../snapstake_app_icon.png" alt="SnapStake" /></div>
+        <div class="nav-links">
+            <a href="#how">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="#download">Download</a>
+        </div>
+        <a href="#" class="cta-button">Get Started</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <img class="hero-brand-icon" src="../snapstake_full_logo.png" alt="SnapStake app icon" />
+            <h1>Make A Claim. <span class="gradient-text">Prove It.</span></h1>
+            <p>Create bold challenges, let others bet on your success, then reveal the truth with video proof.</p>
+            <div class="hero-buttons">
+                <a href="#" class="cta-button">Download Now</a>
+                <a href="#how" class="secondary-button">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="example-section">
+        <h2 class="section-title">See It In Action</h2>
+        <p class="section-subtitle">Real challenges. Real stakes. Real proof.</p>
+        <div class="example-container">
+            <div class="example-card">
+                <h3>The Challenge</h3>
+                <p>"I can land a backflip on my skateboard by tomorrow at 5pm"</p>
+            </div>
+            
+            <div class="bet-display">
+                <div class="bet-option yes">
+                    <div class="label">Yes, they can</div>
+                    <div class="amount">€243</div>
+                    <div style="color: #888; margin-top: 10px; font-size: 14px;">127 bettors</div>
+                </div>
+                <div class="bet-option no">
+                    <div class="label">No way</div>
+                    <div class="amount">€587</div>
+                    <div style="color: #888; margin-top: 10px; font-size: 14px;">298 bettors</div>
+                </div>
+            </div>
+
+            <div class="example-card" style="margin-top: 40px; border-left-color: #4ECDC4;">
+                <h3>The Reveal</h3>
+                <p>Creator uploads video proof showing the successful backflip. All "Yes" bettors split the pot proportionally to their stakes. Creator keeps their initial stake plus a percentage of the total pool.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how" class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number creator-icon">📹</div>
+                <h3>Create Your Challenge</h3>
+                <p>Record a moment or make a bold claim. Ask a yes/no question. Set your stake and deadline.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">💰</div>
+                <h3>Others Place Bets</h3>
+                <p>Friends and community members bet YES or NO on whether you'll deliver. Stakes build up in real-time.</p>
+            </div>
+            <div class="step">
+                <div class="step-number creator-icon">✅</div>
+                <h3>Upload Video Proof</h3>
+                <p>Before the deadline, upload undeniable video proof of your success or failure.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">🎉</div>
+                <h3>Winners Collect</h3>
+                <p>Correct bettors split the losing side's stakes. Transparent. Instant. Fair.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 class="section-title">Built For <span class="gradient-text">Bold Moments</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Any Challenge</h3>
+                <p>Athletic feats, cooking goals, social experiments, dares - if you can film it, you can stake it.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3>Time-Locked Bets</h3>
+                <p>Set clear deadlines. No ambiguity. Stakes close automatically when time's up.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Video Proof System</h3>
+                <p>Built-in verification. Upload your proof directly. Community can validate results.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3>Creator Rewards</h3>
+                <p>Earn a cut of the total pot when you complete your challenge. Bigger risks, bigger rewards.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Public & Private</h3>
+                <p>Share with the world or keep it between friends. You control who can bet.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Payouts</h3>
+                <p>Winners receive payouts immediately after proof verification. No waiting, no hassle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="cta-section">
+        <h2>Ready To Put Your Money Where Your Mouth Is?</h2>
+        <p>Join the movement of creators making bold claims and backing them up</p>
+        <a href="#" class="cta-button">Download SnapStake</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 SnapStake. All rights reserved. • <a href="#" style="color: #666;">Terms</a> • <a href="#" style="color: #666;">Privacy</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .step, .example-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

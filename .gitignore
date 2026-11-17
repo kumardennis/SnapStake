@@ -1,0 +1,63 @@
+# OS
+.DS_Store
+*.swp
+*~
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Flutter / Dart
+**/doc/api/
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/build/
+**/build
+**/ios/Flutter/ephemeral/
+**/macos/Flutter/ephemeral/
+**/linux/flutter/ephemeral/
+**/windows/flutter/ephemeral/
+**/ios/.symlinks/
+**/ios/Pods/
+**/.cxx/
+
+# Symbolication / obfuscation
+app.*.symbols
+app.*.map.json
+
+# Android
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/local.properties
+**/android/.gradle/
+**/android/captures/
+**/key.properties
+**/*.jks
+**/*.keystore
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+**/GoogleService-Info.plist
+**/google-services.json
+
+# Landing
+landing/.vercel/
+
+# Misc
+*.log
+*.class
+*.pyc
+migrate_working_dir/
+snapstake/build
